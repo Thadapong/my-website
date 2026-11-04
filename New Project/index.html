@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>เที่ยวด้วยกัน – ไปไหนดี ให้เพื่อนช่วยเลือก</title>
+<meta name="description" content="ปักหมุดสถานที่ ให้เพื่อนโหวต จัดตารางเที่ยวรายวัน และหารค่าใช้จ่ายในหน้าเดียว ไม่ต้องสมัครสมาชิก">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;700&family=IBM+Plex+Sans+Thai:wght@400;600&display=swap">
+<link rel="stylesheet" href="css/site.css">
+<script src="js/landing.js"></script>
+</head>
+<body data-page="home">
+<div class="wrap">
+<header><div class="hl"><div class="menu" id="menu"><button type="button" class="mt" id="mt" aria-expanded="false" aria-controls="side" aria-label="เมนู / Menu"><span class="bars"></span></button><nav class="side" id="side" aria-label="เมนูหน้า">
+<a href="index.html" data-t="t1" aria-current="true">หน้าหลัก</a>
+<a href="how.html" data-t="t2" aria-current="false">วิธีใช้</a>
+<a href="book.html" data-t="t3" aria-current="false">จองทริป</a>
+</nav></div><a class="brand" href="index.html" data-t="brand">เที่ยวด้วยกัน</a></div><div class="hr"><a class="nav" href="book.html" data-t="nav">จองทริปของคุณ</a><button type="button" class="lang" id="lang" aria-label="Switch to English">EN</button></div></header>
+<section class="hero" id="top">
+ <div>
+  <h1 data-t="h1">ไปไหนดี<br>ให้เพื่อนช่วยเลือก</h1>
+  <p class="lead" data-t="lead">ปักหมุดสถานที่ ให้ทุกคนโหวต จัดตารางเป็นวัน แล้วหารค่าใช้จ่ายให้ครบในหน้าเดียว ไม่ต้องสมัครสมาชิก</p>
+  <a class="go" id="start" href="app.html" data-t="start">เริ่มวางแผนทริป</a>
+  <a class="again" id="newtrip" href="app.html" data-t="newtrip" hidden>สร้างทริปใหม่แทน</a>
+  <form id="join" class="join">
+   <label for="code" data-t="label">มีรหัสหรือลิงก์ทริปแล้ว?</label>
+   <input id="code" name="code" placeholder="วางรหัสหรือลิงก์ที่เพื่อนส่งมา" data-tp autocomplete="off">
+   <button data-t="join">เข้าร่วมทริป</button>
+  </form>
+ </div>
+ <div class="map">
+ <svg class="route" data-ta viewBox="0 0 800 440" role="img" aria-label="ตัวอย่างเส้นทางเที่ยวสี่จุด พร้อมคะแนนโหวตจากเพื่อนในกลุ่ม">
+  <defs><mask id="m"><path class="reveal" pathLength="1" d="M90 340 C 160 220, 200 130, 290 160 S 450 350, 520 280 S 650 70, 720 110" stroke="#fff" stroke-width="14" fill="none"/></mask></defs>
+  <circle class="sun" cx="560" cy="200" r="170"/>
+  <path class="dots" mask="url(#m)" d="M90 340 C 160 220, 200 130, 290 160 S 450 350, 520 280 S 650 70, 720 110"/>
+  <g class="stop" style="--d:.5s;--x:90px;--y:340px"><circle r="19"/><text class="pn" y="6">1</text><g class="tag" transform="translate(-55 28)"><rect width="110" height="30" rx="15"/><text x="55" y="21" data-t="cm">เชียงใหม่</text></g><g class="vote" transform="translate(-28 -52)"><rect width="56" height="26" rx="13"/><text x="28" y="19">♥ 5</text></g></g>
+  <g class="stop" style="--d:1s;--x:290px;--y:160px"><circle r="19"/><text class="pn" y="6">2</text><g class="tag" transform="translate(-35 28)"><rect width="70" height="30" rx="15"/><text x="35" y="21" data-t="pai">ปาย</text></g><g class="vote" transform="translate(-28 -52)"><rect width="56" height="26" rx="13"/><text x="28" y="19">♥ 4</text></g></g>
+  <g class="stop" style="--d:1.5s;--x:520px;--y:280px"><circle r="19"/><text class="pn" y="6">3</text><g class="tag" transform="translate(-60 28)"><rect width="120" height="30" rx="15"/><text x="60" y="21" data-t="mhs">แม่ฮ่องสอน</text></g><g class="vote" transform="translate(-28 -52)"><rect width="56" height="26" rx="13"/><text x="28" y="19">♥ 3</text></g></g>
+  <g class="stop" style="--d:2s;--x:720px;--y:110px"><circle r="19"/><text class="pn" y="6">4</text><g class="tag" transform="translate(-65 28)"><rect width="130" height="30" rx="15"/><text x="65" y="21" data-t="doi">ดอยอินทนนท์</text></g><g class="vote" transform="translate(-28 -52)"><rect width="56" height="26" rx="13"/><text x="28" y="19">♥ 6</text></g></g>
+ </svg>
+ </div>
+</section>
+<footer data-t="foot">เที่ยวด้วยกัน – วางแผนทริปกับเพื่อน ฟรี ไม่ต้องสมัครสมาชิก</footer>
+</div>
+<script src="js/site.js"></script>
+</body>
+</html>

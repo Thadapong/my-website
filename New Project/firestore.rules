@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+
+    // สมาชิก: แก้ได้เฉพาะชื่อของตัวเอง (doc id = uid)
+    match /trips/{trip}/mem/{uid} {
+      allow read: if signedIn();
+      allow write: if signedIn() && request.auth.uid == uid;
+    }
+
+    // สถานที่: ทุกคนในทริปโหวตได้ แต่ลบ/สร้างในนามตัวเองเท่านั้น
+    match /trips/{trip}/places/{id} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.by == request.auth.uid;
+      allow update: if signedIn()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['votes'])
+        && request.resource.data.votes.diff(resource.data.votes).affectedKeys().hasOnly([request.auth.uid]);
+      allow delete: if signedIn() && resource.data.by == request.auth.uid;
+    }
+
+    // ตาราง ค่าใช้จ่าย ชื่อทริป: ทุกคนในทริปแก้ร่วมกันได้
+    match /trips/{trip}/{col}/{id} {
+      allow read, write: if signedIn() && col in ['plan', 'exp', 'meta', 'guest'];
+    }
+  }
+}

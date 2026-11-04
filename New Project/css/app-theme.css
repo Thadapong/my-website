@@ -1,0 +1,290 @@
+/* =========================================================
+   หน้าสร้างทริป (app.html) – ธีมใหม่ให้เข้ากับหน้าแรก
+   โหลดหลัง site.css และ style.css จึงทับสไตล์เดิมได้
+   ปรับสีทั้งหมดได้ที่ตัวแปรชุดแรกนี้ที่เดียว
+   ========================================================= */
+body[data-page="app"]{
+  --ap-bg:#fbf7f1;
+  --ap-card:#ffffff;
+  --ap-ink:#1d2433;
+  --ap-mut:#6b7280;
+  --ap-line:#ecdfd0;
+  --ap-accent:#f26b3a;
+  --ap-accent-d:#d9552a;
+  --ap-soft:#fff1e8;
+  --ap-ok:#15803d;
+  --ap-bad:#b91c1c;
+  --ap-shadow:0 1px 2px rgba(29,36,51,.05),0 8px 24px rgba(29,36,51,.06);
+  --ap-r:20px;
+  background:var(--ap-bg);
+  color:var(--ap-ink);
+  font-family:"IBM Plex Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.55;
+}
+body[data-page="app"] h1,
+body[data-page="app"] h2,
+body[data-page="app"] h3,
+body[data-page="app"] .tabs button{font-family:Kanit,"IBM Plex Sans Thai",sans-serif}
+
+/* ---------- เลย์เอาต์ ---------- */
+body[data-page="app"] .appmain{
+  max-width:980px;margin:0 auto;padding:24px 16px 56px;
+  display:flex;flex-direction:column;gap:16px;
+}
+body[data-page="app"] .appmain > *{margin:0}
+
+/* ---------- หัวเรื่อง ---------- */
+.ap-hero{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:4px 2px 0;
+}
+.ap-hero h1{font-size:clamp(26px,4.5vw,38px);line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+.ap-hero p{margin:0;color:var(--ap-mut);max-width:560px}
+
+/* ---------- การ์ด ---------- */
+body[data-page="app"] .card{
+  background:var(--ap-card);
+  border:1px solid var(--ap-line);
+  border-radius:var(--ap-r);
+  box-shadow:var(--ap-shadow);
+  padding:18px;
+  margin:0 0 16px;
+}
+body[data-page="app"] .tab > .card:last-child{margin-bottom:0}
+body[data-page="app"] .card h2{font-size:20px;font-weight:700;margin:0 0 10px}
+body[data-page="app"] .card b{font-weight:600}
+
+/* แถวฟอร์ม */
+body[data-page="app"] .row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+body[data-page="app"] .grow{flex:1 1 auto}
+body[data-page="app"] .mut{color:var(--ap-mut);font-size:14px}
+
+/* ช่องชื่อทริป / ชื่อของฉัน */
+.ap-setup{align-items:stretch}
+.ap-field{display:flex;flex-direction:column;gap:6px;flex:1 1 240px;min-width:0}
+.ap-field small{font-size:13px;font-weight:600;color:var(--ap-mut)}
+
+/* ---------- ช่องกรอก ---------- */
+body[data-page="app"] input,
+body[data-page="app"] select,
+body[data-page="app"] textarea{
+  font:inherit;color:var(--ap-ink);
+  background:#fff;
+  border:1.5px solid var(--ap-line);
+  border-radius:14px;
+  padding:11px 14px;
+  min-height:46px;
+  box-sizing:border-box;
+  max-width:100%;
+  transition:border-color .15s,box-shadow .15s;
+}
+body[data-page="app"] input.f{flex:1 1 180px;min-width:0}
+body[data-page="app"] input::placeholder{color:#a39a8c}
+body[data-page="app"] input:focus,
+body[data-page="app"] select:focus,
+body[data-page="app"] textarea:focus{
+  outline:none;border-color:var(--ap-accent);
+  box-shadow:0 0 0 4px rgba(242,107,58,.16);
+}
+body[data-page="app"] input[type="checkbox"],
+body[data-page="app"] input[type="radio"]{
+  min-height:0;width:18px;height:18px;padding:0;accent-color:var(--ap-accent);
+}
+
+/* ---------- ปุ่ม ---------- */
+body[data-page="app"] .appmain button{
+  font:600 15px/1 "IBM Plex Sans Thai",sans-serif;
+  background:var(--ap-accent);color:#fff;
+  border:1.5px solid var(--ap-accent);
+  border-radius:999px;
+  padding:0 20px;min-height:46px;
+  cursor:pointer;
+  transition:background .15s,transform .05s,box-shadow .15s;
+}
+body[data-page="app"] .appmain button:hover{background:var(--ap-accent-d);border-color:var(--ap-accent-d)}
+body[data-page="app"] .appmain button:active{transform:translateY(1px)}
+body[data-page="app"] .appmain button:focus-visible{outline:3px solid rgba(242,107,58,.35);outline-offset:2px}
+/* ปุ่มรอง */
+body[data-page="app"] .appmain button.g{
+  background:#fff;color:var(--ap-accent-d);border-color:var(--ap-line);
+}
+body[data-page="app"] .appmain button.g:hover{background:var(--ap-soft);border-color:var(--ap-accent)}
+
+/* ---------- แถบแจ้งเตือนซิงก์ ---------- */
+body[data-page="app"] .banner{
+  background:var(--ap-soft);color:#8a3c18;
+  border:1px solid #f9d3bd;border-radius:14px;
+  padding:10px 14px;font-size:14px;
+}
+
+/* ---------- แท็บ ---------- */
+body[data-page="app"] .tabs{
+  display:flex;gap:6px;padding:6px;
+  background:#f3eadd;border-radius:999px;
+  overflow-x:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+body[data-page="app"] .tabs::-webkit-scrollbar{display:none}
+body[data-page="app"] .appmain .tabs button{
+  flex:1 0 auto;
+  background:transparent;color:var(--ap-mut);
+  border:0;border-radius:999px;
+  padding:0 20px;min-height:42px;
+  font-size:15px;font-weight:600;white-space:nowrap;
+}
+body[data-page="app"] .appmain .tabs button:hover{background:rgba(255,255,255,.6);color:var(--ap-ink)}
+body[data-page="app"] .appmain .tabs button.on,
+body[data-page="app"] .appmain .tabs button.act,
+body[data-page="app"] .appmain .tabs button.active,
+body[data-page="app"] .appmain .tabs button.sel,
+body[data-page="app"] .appmain .tabs button.cur,
+body[data-page="app"] .appmain .tabs button[aria-selected="true"],
+body[data-page="app"] .appmain .tabs button[aria-current="true"]{
+  background:#fff;color:var(--ap-accent-d);
+  box-shadow:0 1px 3px rgba(29,36,51,.12);
+}
+
+/* ---------- แผนที่ (กันชนกับ .map ของหน้าแรก) ---------- */
+body[data-page="app"] .appmain .map{
+  position:relative;display:block;
+  width:100%;height:min(52vh,400px);min-height:280px;
+  border-radius:16px;overflow:hidden;
+  border:1px solid var(--ap-line);
+  background:#eef2f0;
+  animation:none;transform:none;opacity:1;
+}
+body[data-page="app"] .leaflet-container{font-family:inherit;border-radius:16px}
+
+/* ---------- รายการที่ JS สร้าง (สถานที่ ตาราง ค่าใช้จ่าย สรุป) ---------- */
+body[data-page="app"] .card ul,
+body[data-page="app"] .card ol{list-style:none;margin:0;padding:0}
+body[data-page="app"] .card li{
+  padding:12px 0;border-bottom:1px solid #f1e8dc;
+}
+body[data-page="app"] .card li:last-child{border-bottom:0}
+body[data-page="app"] .card table{width:100%;border-collapse:collapse}
+body[data-page="app"] .card th,
+body[data-page="app"] .card td{padding:10px 8px;text-align:left;border-bottom:1px solid #f1e8dc}
+body[data-page="app"] .card th{font-size:13px;color:var(--ap-mut);font-weight:600}
+body[data-page="app"] .card a{color:var(--ap-accent-d)}
+body[data-page="app"] .card small{color:var(--ap-mut)}
+
+/* ปุ่มเล็กในรายการ (โหวต ลบ แก้ไข) */
+body[data-page="app"] .card li button,
+body[data-page="app"] .card td button,
+body[data-page="app"] #ps button,
+body[data-page="app"] #reclist button,
+body[data-page="app"] #gl button{
+  min-height:34px;padding:0 14px;font-size:13px;
+}
+body[data-page="app"] .card li button.x,
+body[data-page="app"] .card li button.del,
+body[data-page="app"] .card li button.d{
+  background:#fff;color:var(--ap-bad);border-color:#f3cccc;
+}
+
+/* ชิปรายชื่อเพื่อน / ตัวเลือกคนหาร */
+body[data-page="app"] #gl,
+body[data-page="app"] #ps{display:flex;flex-wrap:wrap;gap:8px}
+body[data-page="app"] #gl > *,
+body[data-page="app"] #ps > *,
+body[data-page="app"] #es > *{
+  background:var(--ap-soft);border-radius:999px;padding:6px 14px;font-size:14px;
+}
+body[data-page="app"] #es label{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+
+/* แคนวาสส่งออก */
+body[data-page="app"] #cv{
+  display:block;width:100%;height:auto;
+  border:1px solid var(--ap-line);border-radius:14px;background:#fff;
+}
+
+/* ---------- มือถือ ---------- */
+@media (max-width:640px){
+  body[data-page="app"] .appmain{padding:16px 12px 40px;gap:12px}
+  body[data-page="app"] .card{padding:14px;border-radius:16px}
+  .ap-hero{align-items:stretch}
+  .ap-share{width:100%}
+  body[data-page="app"] .row > button{flex:1 1 auto}
+  body[data-page="app"] .row input,
+  body[data-page="app"] .row select{flex:1 1 100%}
+  body[data-page="app"] #ea{width:100% !important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  body[data-page="app"] *{transition:none !important}
+}
+
+/* ---------- ขั้นตอนการใช้งาน ---------- */
+.ap-steps{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0}
+.ap-steps li{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--ap-line,#ecdfd0);border-radius:999px;padding:6px 14px 6px 6px;font-size:14px;color:var(--ap-mut,#6b7280)}
+.ap-steps b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ap-soft,#fff1e8);color:var(--ap-accent-d,#d9552a);font:700 13px Kanit,sans-serif}
+
+/* ---------- ปักหมุดอัตโนมัติ + ค้นหาสถานที่ ---------- */
+.qp-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:10px 0}
+.qp-sw{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;font-size:15px}
+.qp-st{font-size:14px;color:var(--ap-mut,#6b7280)}
+.qp-st.ok{color:var(--ap-ok,#15803d);font-weight:600}
+.qp-st.warn{color:#9a4a10}
+.qp-st.wait{color:var(--ap-mut,#6b7280)}
+.qp-search{margin:0 0 10px}
+.qp-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.qp-list:empty{display:none}
+.qp-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid var(--ap-line,#ecdfd0);border-radius:14px;background:#fffdf9}
+.qp-item span{display:flex;flex-direction:column;min-width:0}
+.qp-item small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qp-item button{flex:0 0 auto}
+@media (max-width:640px){.ap-steps li{font-size:13px}.qp-search input{flex:1 1 100%}}
+
+/* แก้: ช่องค้นหาเดิมใน #ps ต้องไม่ถูกทำเป็นชิป */
+body[data-page="app"] #ps{display:block}
+body[data-page="app"] #ps > *{background:none;border-radius:0;padding:0;font-size:inherit}
+body[data-page="app"] #ps > div,
+body[data-page="app"] #ps form{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+body[data-page="app"] #ps input{flex:1 1 220px}
+body[data-page="app"] #ps button{min-height:46px;padding:0 20px;font-size:15px}
+/* ตั้งชื่อเอง (พับเก็บไว้) */
+.qp-manual{margin-top:10px}
+.qp-manual summary{cursor:pointer;color:var(--ap-mut,#6b7280);font-size:14px;font-weight:600;padding:6px 0}
+.qp-manual .row{margin-top:8px}
+
+/* ---------- ที่เที่ยวเด่นบนแผนที่ ---------- */
+.qp-poi{display:flex;align-items:center;gap:6px;white-space:nowrap;cursor:pointer;background:none;border:0;width:auto !important;height:auto !important}
+.qp-poi i{flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:var(--ap-accent,#f26b3a);border:2.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.qp-poi span{font:600 12px/1 "IBM Plex Sans Thai",sans-serif;color:#1d2433;background:rgba(255,255,255,.94);padding:4px 8px;border-radius:999px;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.qp-poi.t1 i{width:20px;height:20px}
+.qp-poi.t1 span{font-size:13px}
+.qp-poi:hover span,.qp-poi:focus span{background:var(--ap-accent,#f26b3a);color:#fff}
+.qp-poi:focus{outline:none}
+.qp-home{min-height:36px !important;padding:0 16px !important;font-size:14px !important}
+
+/* ---------- แผนที่ใหญ่และคมขึ้น ---------- */
+body[data-page="app"] .appmain{max-width:1200px}
+body[data-page="app"] .appmain .map{height:min(70vh,640px);min-height:440px;transition:height .2s}
+body[data-page="app"] .appmain .map.qp-big{height:calc(100vh - 110px);min-height:560px}
+body[data-page="app"] .leaflet-tile-pane{filter:contrast(1.08) saturate(1.12)}
+body[data-page="app"] .leaflet-tile{image-rendering:auto}
+body[data-page="app"] .leaflet-control-zoom a{width:40px;height:40px;line-height:40px;font-size:22px}
+@media (max-width:640px){
+  body[data-page="app"] .appmain .map{height:62vh;min-height:380px}
+  body[data-page="app"] .appmain .map.qp-big{height:calc(100vh - 90px)}
+}
+
+/* พื้นหลังแผนที่ให้กลืนกับส่วนที่ซ่อนประเทศอื่น */
+body[data-page="app"] .appmain .map,
+body[data-page="app"] .leaflet-container{background:#f1efe9}
+/* ลบทะเลและพื้นที่อื่นออกจากแผนที่: พื้นหลังต้องเป็นสีเดียวกับส่วนที่ถม */
+body[data-page="app"] .appmain .map,
+body[data-page="app"] .leaflet-container{background:#f1efe9}
+
+/* ---------- แผนที่ใหญ่ขึ้นอีก + พื้นที่ที่ปิดไว้ ---------- */
+body[data-page="app"] .appmain{max-width:1400px}
+body[data-page="app"] .appmain .map{height:clamp(520px,calc(100vh - 170px),860px);min-height:520px}
+body[data-page="app"] .appmain .map.qp-big{height:calc(100vh - 90px);min-height:600px}
+.qp-blocked{cursor:not-allowed !important}
+.leaflet-container .qp-blocked{outline:none}
+@media (max-width:640px){
+  body[data-page="app"] .appmain .map{height:72vh;min-height:420px}
+  body[data-page="app"] .appmain .map.qp-big{height:calc(100vh - 80px)}
+}

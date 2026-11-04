@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ที่เที่ยวแนะนำ – เที่ยวด้วยกัน</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;700&family=IBM+Plex+Sans+Thai:wght@400;600&display=swap">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/province.css">
+</head>
+<body data-page="book">
+<div class="wrap">
+<header><div class="hl"><div class="menu" id="menu"><button type="button" class="mt" id="mt" aria-expanded="false" aria-controls="side" aria-label="เมนู / Menu"><span class="bars"></span></button><nav class="side" id="side" aria-label="เมนูหน้า">
+<a href="index.html" data-t="t1" aria-current="false">หน้าหลัก</a>
+<a href="how.html" data-t="t2" aria-current="false">วิธีใช้</a>
+<a href="book.html" data-t="t3" aria-current="true">จองทริป</a>
+</nav></div><a class="brand" href="index.html" data-t="brand">เที่ยวด้วยกัน</a></div><div class="hr"><a class="nav" href="book.html" data-t="nav">จองทริปของคุณ</a><button type="button" class="lang" id="lang" aria-label="Switch to English">EN</button></div></header>
+
+<main class="pv-wrap" id="pv"></main>
+
+<footer data-t="foot">เที่ยวด้วยกัน – วางแผนทริปกับเพื่อน ฟรี ไม่ต้องสมัครสมาชิก</footer>
+</div>
+<script src="js/site.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/provinces.js"></script>
+<script src="js/provinces-en.js"></script>
+<script src="js/stays.js"></script>
+<script src="js/foods.js"></script>
+<script src="js/parks-data.js"></script>
+<script>
+(function(){
+ if(typeof I18N==="undefined"){document.getElementById("pv").innerHTML='<p class="pv-sub">ไม่พบไฟล์ js/i18n.js / js/i18n.js is missing</p>';return}
+ var root=document.getElementById("pv");
+ var key=new URLSearchParams(location.search).get("p");
+ function li(a){return a.map(function(x){return "<li>"+x+"</li>"}).join("")}
+ function render(L){
+  var T=function(k){return I18N.t(k)},en=(L==="en");
+  if(typeof PROV==="undefined"){root.innerHTML='<p class="pv-sub">'+T("nodata")+'</p>';return}
+  var p=null;
+  for(var i=0;i<PROV.length;i++){if(PROV[i].key===key){p=PROV[i]}}
+  if(!p){
+   document.title=T("nf");
+   root.innerHTML='<a class="pv-back" href="book.html">'+T("back")+'</a><h1>'+T("nf")+'</h1><p class="pv-sub">'+T("nfs")+'</p>';
+   return;
+  }
+  var E=(en&&typeof PROV_EN!=="undefined"&&PROV_EN[p.key])||{};
+  var name=E.name||p.name;
+  document.title=name+T("t2");
+  var spots=(E.spots||p.spots).map(function(s,i){
+   var url=p.spots[i][2],direct=!!url;
+   var q=encodeURIComponent(p.spots[i][0]+" "+p.name);
+   var info=url||("https://www.google.com/search?q="+encodeURIComponent("site:tourismthailand.org "+p.spots[i][0]));
+   var map="https://www.google.com/maps/search/?api=1&query="+q;
+   return '<li><b>'+s[0]+'</b><span>'+s[1]+'</span><div class="pv-links">'+
+    '<a href="'+info+'" target="_blank" rel="noopener">'+(direct?T("official"):T("info"))+'</a>'+
+    '<a href="'+map+'" target="_blank" rel="noopener">'+T("map")+'</a></div></li>';
+  }).join("");
+  var foods="";
+  if(typeof FOODS!=="undefined"&&FOODS[p.key]){
+   foods='<div class="pv-stays">'+FOODS[p.key].map(function(f){
+    var m="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(f[4]);
+    return '<div class="pv-stay"><small>'+(en?f[3]:f[1])+'</small><b>'+(en?f[2]:f[0])+'</b><a href="'+m+'" target="_blank" rel="noopener">'+T("foodMap")+'</a></div>';
+   }).join("")+'</div><p class="pv-note">'+T("foodNote")+'</p>';
+  }
+  var stays="";
+  if(typeof STAYS!=="undefined"&&STAYS[p.key]){
+   stays='<div class="pv-stays">'+STAYS[p.key].map(function(s,i){
+    var se=(en&&typeof STAYS_EN!=="undefined"&&STAYS_EN[p.key]&&STAYS_EN[p.key][i])||[];
+    var m="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s.q);
+    return '<div class="pv-stay"><small>'+I18N.tier(s.tier,L)+'</small><b>'+(se[0]||s.type)+'</b><span>'+(se[1]||s.area)+'</span><em>'+I18N.money(s.price,L)+T("perNight")+'</em><a href="'+m+'" target="_blank" rel="noopener">'+T("stayMap")+'</a></div>';
+   }).join("")+'</div><p class="pv-note">'+T("stayNote")+'</p>';
+  }
+  root.innerHTML=
+   '<a class="pv-back" href="book.html">'+T("back")+'</a>'+
+   '<h1>'+name+'</h1><p class="pv-sub">'+I18N.region(p.region,L)+' · '+(E.tag||p.tag)+'</p>'+
+   '<div class="pv-facts">'+
+    '<div><small>'+T("best")+'</small>'+(E.best||p.best)+'</div>'+
+    '<div><small>'+T("from")+'</small>'+(E.from||p.from)+'</div>'+
+    '<div><small>'+T("days")+'</small>'+I18N.days(p.days,L)+'</div>'+
+    '<div><small>'+T("budget")+'</small>'+I18N.money(p.budget,L)+'</div>'+
+   '</div>'+
+   '<section class="pv-sec"><h2>'+T("spots")+'</h2><ul class="pv-spots">'+spots+'</ul></section>'+
+   '<section class="pv-sec"><h2>'+T("stay")+'</h2><p>'+(E.stay||p.stay)+'</p>'+stays+'</section>'+
+   '<section class="pv-sec"><h2>'+(foods?T("foodH"):T("food"))+'</h2>'+(foods||'<ul class="pv-list">'+li(E.food||p.food)+'</ul>')+'</section>'+
+   '<section class="pv-sec"><h2>'+T("tips")+'</h2><ul class="pv-list">'+li(E.tips||p.tips)+'</ul></section>'+
+   '<section class="pv-sec" id="pk"></section>'+
+   '<div class="pv-acts">'+
+    '<a class="pv-btn" href="app.html">'+T("plan")+'</a>'+
+    /* TODO: เปลี่ยนเป็นลิงก์ affiliate ของคุณเอง */
+    '<a class="pv-btn o" href="https://www.agoda.com" target="_blank" rel="sponsored noopener">'+T("hotels")+'</a>'+
+    '<a class="pv-btn o" href="https://www.klook.com/th/" target="_blank" rel="sponsored noopener">'+T("acts")+'</a>'+
+   '</div>'+
+   '<p class="pv-note">'+T("note")+'</p>';
+  /* อุทยานแห่งชาติในจังหวัดนี้ */
+  var pk=document.getElementById("pk");
+  if(pk&&typeof loadParks!=="undefined"){
+   loadParks().then(function(list){
+    var mine=list.filter(function(x){return x.pv===p.name||x.pv.indexOf(p.name)>=0||p.name.indexOf(x.pv)>=0});
+    if(!mine.length)return;
+    pk.innerHTML='<h2>'+(en?"National parks":"อุทยานแห่งชาติ")+'</h2><ul class="pv-spots">'+mine.map(function(x){
+     var q=encodeURIComponent(x.n+" "+p.name);
+     return '<li><b>'+x.n+'</b><div class="pv-links"><a href="app.html?fly='+x.ll[0].toFixed(4)+','+x.ll[1].toFixed(4)+',11">'+(en?"View on map":"ดูบนแผนที่")+'</a>'+
+      '<a href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">'+T("map")+'</a></div></li>';
+    }).join("")+'</ul>';
+   }).catch(function(){});
+  }
+ }
+ I18N.on(render);
+})();
+</script>
+</body>
+</html>
